@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ECFDF5"/><stop offset="100%" stop-color="#D9F2E6"/>
+    </linearGradient>
+    <linearGradient id="grd" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#10B981" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#047857" stop-opacity=".9"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E8C65A"/><stop offset="100%" stop-color="#C9A227"/>
+    </linearGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FBF8F1" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#FBF8F1" stop-opacity=".9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E8C65A" stop-opacity=".85"/>
+      <stop offset="100%" stop-color="#E8C65A" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="lat" width="52" height="52" patternUnits="userSpaceOnUse"><path d="M 42.91,9.09 L 42.91,42.91 L 9.09,42.91 L 9.09,9.09 Z M 49.92,26.00 L 26.00,49.92 L 2.08,26.00 L 26.00,2.08 Z" fill="none" stroke="#047857" stroke-width="1.2"/></pattern>
+  </defs>
+  <rect width="800" height="600" fill="url(#sky)"/>
+  <g fill="#FFFFFF" opacity="0.5" transform="translate(160 108) scale(1)">
+     <ellipse cx="0" cy="0" rx="52" ry="20"/>
+     <ellipse cx="40" cy="-14" rx="34" ry="24"/>
+     <ellipse cx="-40" cy="-8" rx="30" ry="20"/>
+   </g>
+  <g fill="#FFFFFF" opacity="0.38" transform="translate(496 192) scale(0.72)">
+     <ellipse cx="0" cy="0" rx="52" ry="20"/>
+     <ellipse cx="40" cy="-14" rx="34" ry="24"/>
+     <ellipse cx="-40" cy="-8" rx="30" ry="20"/>
+   </g>
+  <rect width="800" height="600" fill="url(#lat)" opacity="0.09"/>
+  <path d="M0 468 Q 224.00000000000003 420 440.00000000000006 456 T 800 438 L 800 600 L 0 600 Z" fill="url(#grd)" opacity=".5"/>
+  <path d="M0 522 Q 240 480 480 516 T 800 498 L 800 600 L 0 600 Z" fill="#047857" opacity=".55"/>
+  <path d="M 400 400 C 332.5 243.6 272.5 230 250 230 L 250 400 C 280 372.8 337 383 400 400 Z" fill="#FBF8F1" opacity="1"/>
+  <path d="M 400 400 C 467.5 243.6 527.5 230 550 230 L 550 400 C 520 372.8 463 383 400 400 Z" fill="#FBF8F1" opacity="1"/>
+  <path d="M 300 368 q 45 -13 90 0" stroke="#C9A227" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.85"/><path d="M 295 385 q 45 -13 90 0" stroke="#C9A227" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.71"/><path d="M 290 402 q 45 -13 90 0" stroke="#C9A227" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.57"/><path d="M 285 419 q 45 -13 90 0" stroke="#C9A227" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.42999999999999994"/>
+  <path d="M 500 368 q -45 -13 -90 0" stroke="#C9A227" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.85"/><path d="M 505 385 q -45 -13 -90 0" stroke="#C9A227" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.71"/><path d="M 510 402 q -45 -13 -90 0" stroke="#C9A227" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.57"/><path d="M 515 419 q -45 -13 -90 0" stroke="#C9A227" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.42999999999999994"/>
+  <path d="M 400 400 L 400 253" stroke="#C9A227" stroke-width="5" opacity=".75"/>
+  <path d="M 330 402 L 300 486 L 350 486 L 366 402 Z" fill="#053B33" opacity=".9"/>
+  <path d="M 470 402 L 500 486 L 450 486 L 434 402 Z" fill="#053B33" opacity=".9"/>
+  <rect x="286" y="482" width="228" height="18" rx="9" fill="#053B33"/>
+  <polygon points="400.0,124.0 404.1,140.0 418.4,131.6 410.0,145.9 426.0,150.0 410.0,154.1 418.4,168.4 404.1,160.0 400.0,176.0 395.9,160.0 381.6,168.4 390.0,154.1 374.0,150.0 390.0,145.9 381.6,131.6 395.9,140.0" fill="#C9A227" opacity="0.9"/>
+  <path d="M 596 162 A 52 52 0 0 1 596 266 A 67.60000000000001 67.60000000000001 0 0 1 596 162 Z" fill="#053B33"/>
+  <rect y="510" width="800" height="90" fill="url(#fade)"/>
+</svg>

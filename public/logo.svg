@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Logo sekolah">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#065F46"/><stop offset="100%" stop-color="#053B33"/>
+    </linearGradient>
+    <linearGradient id="gl" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E8C65A"/><stop offset="100%" stop-color="#C9A227"/>
+    </linearGradient>
+    <pattern id="lat" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M 24.76,5.24 L 24.76,24.76 L 5.24,24.76 L 5.24,5.24 Z M 28.80,15.00 L 15.00,28.80 L 1.20,15.00 L 15.00,1.20 Z" fill="none" stroke="#FFFFFF" stroke-width="1.2"/></pattern>
+  </defs>
+  
+  <rect width="120" height="120" rx="30" fill="url(#bg)"/>
+  <rect width="120" height="120" rx="30" fill="url(#lat)" opacity=".16"/>
+  <circle cx="60" cy="60" r="42" fill="none" stroke="url(#gl)" stroke-width="2" opacity=".7"/>
+  <path d="M 56 30 A 14 14 0 0 1 56 58 A 18.2 18.2 0 0 1 56 30 Z" fill="url(#gl)"/>
+  <polygon points="75.0,27.0 76.1,31.3 79.9,29.1 77.7,32.9 82.0,34.0 77.7,35.1 79.9,38.9 76.1,36.7 75.0,41.0 73.9,36.7 70.1,38.9 72.3,35.1 68.0,34.0 72.3,32.9 70.1,29.1 73.9,31.3" fill="url(#gl)" opacity="1"/>
+  
+  <path d="M 60 98 C 44.7 72.24 31.1 70 26 70 L 26 98 C 32.8 93.52 45.72 95.2 60 98 Z" fill="url(#gl)" opacity="1"/>
+  <path d="M 60 98 C 75.3 72.24 88.9 70 94 70 L 94 98 C 87.2 93.52 74.28 95.2 60 98 Z" fill="url(#gl)" opacity="1"/>
+  <path d="M 60 98 L 60 70" stroke="#053B33" stroke-width="2" opacity=".28"/>
+  <path d="M 40 82 q 15 -8 16 4 M 80 82 q -15 -8 -16 4" stroke="#053B33" stroke-width="1.5" fill="none" opacity=".3"/>
+</svg>
