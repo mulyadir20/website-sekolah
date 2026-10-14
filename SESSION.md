@@ -632,3 +632,74 @@ yang masuk commit.**
 2. Hubungkan repository ke project Vercel.
 3. Verifikasi apakah Google Fonts berhasil diunduh di build machine Vercel.
    Ini satu-satunya hal teknis yang belum bisa dipastikan tanpa deployment.
+
+---
+
+## Sesi: Push ke GitHub (Opsi A - gh CLI)
+
+Tanggal: 2026-10-14 (sesi lanjutan)
+
+Status: **PUSH BERHASIL. `master` di GitHub sudah sinkron dengan lokal.**
+
+### gh CLI
+
+`gh` tidak ada di sistem. Dipasang manual (tanpa sudo, tanpa apt) ke
+`~/.local/bin/gh`, versi **2.102.0**, sudah ada di PATH. Binary resmi dari
+rilis GitHub `cli/cli`.
+
+### Autentikasi
+
+Device flow dipakai agar pemilik proyek cukup otorisasi lewat browser:
+
+- `gh auth login --web --git-protocol https` dijalankan di latar belakang
+- Kode sekali pakai diberikan ke pemilik proyek (tidak dicatat di dokumen ini)
+- Hasil: **Logged in as `mulyadir20`**, kredensial disimpan di keyring sistem
+- Scope token: `gist`, `read:org`, `repo`
+- `gh auth setup-git` aktifkan credential helper:
+  `gh auth git-credential`
+
+Tidak ada token yang ditulis ke file mana pun, ditampilkan di laporan, atau
+disimpan di dalam repo.
+
+### Hasil push
+
+- **Branch:** `master`
+- **Commit:** `68fcf87` - `feat: halaman berita, SEO, dan hardening keamanan`
+- **Jumlah commit di server:** 4 (ketiga commit lama ikut ter-push utuh)
+- **Status:** `master...origin/master` tanpa ahead/behind, sudah sinkron
+- Upstream sudah di-set ke `origin/master`
+
+Catatan jujur: perintah `git push` milik agen **gagal** di sesi sebelumnya
+karena belum ada kredensial. Commit sudah ada di server saat diperiksa setelah
+autentikasi selesai, jadi push tersebut dilakukan di luar perintah agen.
+Hasil akhir diverifikasi ulang langsung lewat GitHub API, bukan diasumsikan.
+
+### Verifikasi di server (GitHub API)
+
+| Pemeriksaan | Hasil |
+|---|---|
+| Repo | `mulyadir20/website-sekolah` |
+| Visibilitas | **publik** (`"private": false`) |
+| Branch default | `master` |
+| HEAD di server | `68fcf87` |
+| Jumlah commit | 4 |
+| Jumlah file di repo | 77 |
+| `.env`, kunci, `node_modules`, `.next`, `tsbuildinfo` | **nol** |
+| Isi root | `.gitignore`, `AGENTS.md`, `README.md`, `SESSION.md`, `app`, `components`, `lib`, `public`, `next.config.ts`, `package.json`, `package-lock.json`, `tsconfig.json`, `eslint.config.mjs` |
+
+### Peringatan yang masih berlaku
+
+Repo bersifat **publik**. Semua isi repo - termasuk `SESSION.md` yang berisi
+catatan audit - dapat dibaca siapa saja. Tidak ada rahasia di dalamnya, tetapi
+perlu diketahui.
+
+### Langkah berikutnya
+
+1. Ganti `site.url` di `lib/site.ts` dari `https://example.test` ke URL Vercel
+   asli. **Lakukan ini sebelum** connect project Vercel, supaya canonical
+   URL, `sitemap.xml`, dan `robots.txt` langsung benar.
+2. Connect repository `mulyadir20/website-sekolah` ke project Vercel.
+3. Verifikasi build di Vercel, khususnya apakah Google Fonts berhasil
+   diunduh di build machine (satu-satunya hal yang belum bisa dipastikan
+   tanpa deployment).
+4. Commit perubahan `site.url` lalu push.
