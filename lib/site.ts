@@ -48,18 +48,17 @@ export const site = {
 
   // --- DATA DEMO: kontak ---
   /**
-   * Domain produksi tanpa skema dan tanpa garis miring di akhir.
-   * Dipakai untuk `metadataBase`, sitemap, dan robots.
+   * URL kanonis produksi, **tanpa garis miring di akhir**.
    *
-   * `example.test` adalah domain cadangan (RFC 2606) yang dijamin tidak
-   * pernah didaftarkan siapa pun, sehingga tidak mungkin menabrak domain
-   * milik orang lain.
+   * Dipakai untuk `metadataBase`, canonical, sitemap.xml, dan robots.txt.
+   * Trailing slash tidak boleh ditambahkan: `robots.ts` dan `sitemap.ts`
+   * menyusun URL dengan konkatenasi string, sehingga garis miring di akhir
+   * akan menghasilkan `//sitemap.xml`.
    *
-   * PENTING SAAT DEPLOY: ganti dengan URL Vercel asli, misalnya
-   * `https://website-sekolah.vercel.app`. Kalau dibiarkan, canonical URL,
-   * sitemap.xml, dan robots.txt akan menunjuk ke domain yang salah.
+   * Skema `https://` wajib disertakan karena `new URL(site.url)` dipakai
+   * sebagai `metadataBase` di `app/layout.tsx`.
    */
-  url: "https://example.test",
+  url: "https://website-sekolah-steel.vercel.app",
   /**
    * Nomor contoh yang tidak akan sampai ke nomor sungguhan.
    * `0000-0000` tidak pernah dialokasikan operator, sehingga aman untuk demo.

@@ -703,3 +703,112 @@ perlu diketahui.
    diunduh di build machine (satu-satunya hal yang belum bisa dipastikan
    tanpa deployment).
 4. Commit perubahan `site.url` lalu push.
+
+---
+
+## Sesi: URL Produksi Vercel Ditetapkan
+
+Tanggal: 2026-10-14 (sesi lanjutan)
+
+Status: **`site.url` sudah diganti ke URL Vercel produksi.
+Check dan build LOLOS. Belum di-commit dan belum di-push.**
+
+### URL produksi
+
+`https://website-sekolah-steel.vercel.app`
+
+Diverifikasi hidup sebelum diubah: **HTTP 200**. Saat dicek, deployment yang
+sudah ada masih menyajikan `https://example.test` di URL kanonisnya, jadi
+perubahan ini memang dibutuhkan, bukan kosmetik.
+
+### Perubahan
+
+Hanya **satu file**: `lib/site.ts`.
+
+- `site.url`: `https://example.test` -> `https://website-sekolah-steel.vercel.app`
+- Komentar JSDoc di atas field tersebut ditulis ulang karena isinya sudah
+  basi: menyebut `example.test`, memberi contoh URL yang keliru, dan
+  masih memuat instruksi "PENTING SAAT DEPLOY" yang sekarang sudah selesai.
+
+Tidak ada file atau konfigurasi lain yang disentuh.
+
+### Konvensi URL kanonis
+
+Tanpa garis miring di akhir, sesuai konvensi yang sudah ada di proyek ini.
+Alasannya, bukan sekadar prefersensi: `app/robots.ts` dan `app/sitemap.ts`
+menyusun URL dengan konkatenasi string (`` `${site.url}/sitemap.xml` ``),
+sehingga trailing slash akan menghasilkan `//sitemap.xml`. Skema `https://`
+wajib ada karena `new URL(site.url)` dipakai sebagai `metadataBase` di
+`app/layout.tsx`.
+
+Catatan: komentar lama menulis "tanpa skema", padahal nilai aslinya memakai
+skema. Komentar itu memang salah sejak awal; sudah dikoreksi saat ditulis
+ulang.
+
+### Audit pemakaian `site.url`
+
+Lima titik pemakaian, semuanya ikut berubah otomatis karena membaca
+`site.url`:
+
+| Lokasi | Pemakaian |
+|---|---|
+| `app/layout.tsx:24` | `metadataBase: new URL(site.url)` |
+| `app/layout.tsx:62` | JSON-LD `School.url` |
+| `app/robots.ts:9` | `Sitemap: ${site.url}/sitemap.xml` |
+| `app/robots.ts:10` | `Host: site.url` |
+| `app/sitemap.ts:8` | basis seluruh `<loc>` |
+
+### Hasil verifikasi
+
+**Pemeriksaan tool**
+
+| Pemeriksaan | Hasil |
+|---|---|
+| `npm run check` | **Exit 0** - typegen, `tsc --noEmit`, ESLint lulus |
+| `npm run build` | **Sukses**, 12/12 halaman statis |
+
+**Output build**
+
+- `robots.txt`: `Host` dan `Sitemap` -> `https://website-sekolah-steel.vercel.app`
+- `sitemap.xml`: kelima `<loc>` -> `https://website-sekolah-steel.vercel.app`
+  tanpa `//` ganda
+- `.next/server/app/`: nol kemunculan `example.test`
+
+**HTML yang dirender** (server produksi lokal)
+
+- `<link rel="canonical">` -> `https://website-sekolah-steel.vercel.app`
+- `og:url` -> `https://website-sekolah-steel.vercel.app`
+- `og:image` dan `twitter:image` -> `https://website-sekolah-steel.vercel.app/opengraph-image?...`
+- JSON-LD `url` -> `https://website-sekolah-steel.vercel.app`
+- Scan `/`, `/berita`, `/berita/[slug]`, `robots.txt`, `sitemap.xml`:
+  **nol** `example.test`
+
+### Apakah masih ada referensi `example.test` yang relevan
+
+**Tidak ada di kode.** Satu-satunya sisa ada di dokumentasi historis:
+
+| Lokasi | Status |
+|---|---|
+| `lib/site.ts:54` (sebelum perubahan) | Sudah hilang, ikut terhapus bersama komentar lama |
+| Kode `app/`, `components/`, `lib/`, `next.config.ts` | **Nol** |
+| Output build `.next/` | **Nol** |
+| `README.md` | Tidak menyebut `example.test` |
+| `SESSION.md` | Menyebut historis di beberapa sesi - dibiarkan sebagai catatan |
+
+`info@example.com` **tetap dipakai** dan itu memang benar: itu alamat email
+demo, bukan URL produksi, dan masih rainedun tidak bisa delivering. Tidak
+ikut diubah.
+
+### Yang belum dilakukan
+
+Belum ada commit dan belum ada push untuk perubahan ini, sesuai instruksi
+pemilik proyek. `git status` menunjukkan `M lib/site.ts` saja.
+
+### Langkah berikutnya
+
+1. Commit `lib/site.ts` lalu push ke `origin/master`.
+2. Vercel akan otomatis rebuild, dan URL kanonis di deployment akan ikut
+   benar tanpa perlu redeploy manual.
+3. Setelah itu, yang tersisa memverifikasi apakah Google Fonts berhasil
+   diunduh di build machine Vercel - satu-satunya hal teknis yang belum
+   pernah bisa dipastikan tanpa deployment nyata.
