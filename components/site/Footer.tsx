@@ -1,15 +1,10 @@
 import Image from "next/image";
 
+import { jamOperasional } from "@/lib/content/jamOperasional";
 import { navigation } from "@/lib/navigation";
-import { site } from "@/lib/site";
+import { site, sitePhoneNumber } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
-
-const jamOperasional = [
-  { hari: "Senin - Jumat", waktu: "07.00 - 15.00 WIB" },
-  { hari: "Sabtu", waktu: "07.00 - 12.00 WIB" },
-  { hari: "Ahad", waktu: "Tutup" },
-];
 
 /**
  * Tahun berjalan dihitung satu kali lalu di-cache.
@@ -58,9 +53,10 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5">
               {navigation.map((item) => (
                 <li key={item.href}>
+                  {/* Anchor di-prefix `/` supaya tetap menuju section dari halaman mana pun. */}
                   <a
-                    href={item.href}
-                    className="text-sm text-brand-100/70 transition-colors hover:text-gold-300"
+                    href={`/${item.href}`}
+                    className="text-sm text-brand-100/80 transition-colors hover:text-gold-300"
                   >
                     {item.label}
                   </a>
@@ -81,7 +77,7 @@ export function Footer() {
               </li>
               <li className="flex gap-3">
                 <Icon name="phone" className="mt-0.5 h-4 w-4 shrink-0 text-gold-300" />
-                <a href={`tel:${site.phone.replace(/[^\d+]/g, "")}`} className="hover:text-gold-300">
+                <a href={`tel:${sitePhoneNumber}`} className="hover:text-gold-300">
                   {site.phone}
                 </a>
               </li>
@@ -127,6 +123,19 @@ export function Footer() {
           <p>Berbasis nilai Adab dan Ilmu</p>
         </Container>
       </div>
+
+      {/*
+        Penanda demo. Hapus seluruh blok ini — beserta field `isDemo` di
+        `lib/site.ts` — begitu situs ini dipakai untuk sekolah sungguhan.
+      */}
+      {site.isDemo ? (
+        <div className="border-t border-brand-900 bg-brand-900">
+          <Container className="py-3 text-center text-xs text-brand-100/70">
+            Situs demo — seluruh nama, alamat, nomor, dan statistik di halaman
+            ini adalah data contoh dan tidak mewakili sekolah sungguhan.
+          </Container>
+        </div>
+      ) : null}
     </footer>
   );
 }

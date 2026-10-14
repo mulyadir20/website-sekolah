@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { navigation } from "@/lib/navigation";
-import { site } from "@/lib/site";
+import { navigasiHref, navigation } from "@/lib/navigation";
+import { site, sitePhoneNumber, whatsappLink } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
 import { AnchorButton } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
@@ -16,6 +17,7 @@ import { Icon } from "@/components/ui/Icon";
  */
 export function Header() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!open) return;
@@ -34,6 +36,18 @@ export function Header() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  // Escape menutup menu mobile dan mengembalikan fokus ke tombol pemicunya.
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      document.getElementById("tombol-menu-mobile")?.focus();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-brand-100 bg-white/90 backdrop-blur-md">
       {/* Baris informasi kontak - disembunyikan di layar kecil */}
@@ -45,7 +59,7 @@ export function Header() {
           </p>
           <div className="flex items-center gap-5">
             <a
-              href={`tel:${site.phone.replace(/[^\d+]/g, "")}`}
+              href={`tel:${sitePhoneNumber}`}
               className="flex items-center gap-1.5 transition-colors hover:text-gold-300"
             >
               <Icon name="phone" className="h-3.5 w-3.5 text-gold-300" />
@@ -62,8 +76,18 @@ export function Header() {
         </Container>
       </div>
 
+      <a
+        href="#konten"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-brand-900 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+      >
+        Lewati ke konten utama
+      </a>
+
       <Container className="flex h-16 items-center justify-between gap-4 lg:h-20">
-        <a href="#beranda" className="flex items-center gap-3">
+        <a
+          href={navigasiHref("#beranda", pathname)}
+          className="flex shrink-0 items-center gap-3"
+        >
           <Image
             src="/logo.svg"
             alt={`Logo ${site.name}`}
@@ -76,20 +100,20 @@ export function Header() {
             <span className="font-display text-base font-semibold text-brand-950 sm:text-lg">
               {site.shortName}
             </span>
-            <span className="hidden text-[11px] text-brand-800/70 sm:block">
+            <span className="hidden text-[11px] text-brand-800/85 xl:block">
               {site.tagline}
             </span>
           </span>
         </a>
 
         {/* Navigasi desktop */}
-        <nav aria-label="Navigasi utama" className="hidden lg:block">
+        <nav aria-label="Navigasi utama" className="hidden min-w-0 lg:block">
           <ul className="flex items-center gap-1">
             {navigation.map((item) => (
               <li key={item.href}>
                 <a
-                  href={item.href}
-                  className="rounded-full px-3 py-2 text-sm font-medium text-brand-900 transition-colors hover:bg-brand-50 hover:text-brand-700"
+                  href={navigasiHref(item.href, pathname)}
+                  className="block whitespace-nowrap rounded-full px-2.5 py-2 text-sm font-medium text-brand-900 transition-colors hover:bg-brand-50 hover:text-brand-700 xl:px-3"
                 >
                   {item.label}
                 </a>
@@ -98,9 +122,9 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden shrink-0 lg:block">
           <AnchorButton
-            href={`https://wa.me/${site.whatsapp}`}
+            href={whatsappLink()}
             target="_blank"
             rel="noopener noreferrer"
             size="sm"
@@ -113,6 +137,7 @@ export function Header() {
 
         {/* Tombol menu mobile */}
         <button
+          id="tombol-menu-mobile"
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
@@ -136,7 +161,7 @@ export function Header() {
               {navigation.map((item) => (
                 <li key={item.href}>
                   <a
-                    href={item.href}
+                    href={navigasiHref(item.href, pathname)}
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-between rounded-xl px-4 py-3 text-base font-medium text-brand-900 transition-colors hover:bg-brand-50"
                   >
@@ -150,7 +175,7 @@ export function Header() {
 
           <div className="mt-4 flex flex-col gap-2 border-t border-brand-100 pt-4">
             <AnchorButton
-              href={`https://wa.me/${site.whatsapp}`}
+              href={whatsappLink()}
               target="_blank"
               rel="noopener noreferrer"
               variant="primary"
@@ -160,7 +185,7 @@ export function Header() {
               Pendaftaran
             </AnchorButton>
             <AnchorButton
-              href={`tel:${site.phone.replace(/[^\d+]/g, "")}`}
+              href={`tel:${sitePhoneNumber}`}
               variant="outline"
               full
             >

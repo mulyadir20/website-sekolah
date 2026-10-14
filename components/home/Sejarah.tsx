@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 /** Sejarah singkat sekolah dalam bentuk linimasa. */
 export function Sejarah() {
   return (
-    <section id="sejarah" className="scroll-mt-24 bg-white py-16 sm:py-20">
+    <section id="sejarah" className="bg-white py-16 sm:py-20">
       <Container>
         <SectionHeading
           eyebrow="Sejarah"
@@ -29,7 +29,13 @@ export function Sejarah() {
                 <span className="h-1.5 w-1.5 rounded-full bg-brand-700" />
               </span>
 
-              <span className="absolute left-[30px] top-6 h-[calc(100%-1rem)] w-px bg-brand-100 lg:hidden" />
+              {/* Garis penghubung vertikal, disejajarkan dengan titik. */}
+              {index < timeline.length - 1 ? (
+                <span
+                  aria-hidden="true"
+                  className="absolute left-[7.5px] top-[22px] h-[calc(100%-1.25rem)] w-px bg-brand-100 lg:hidden"
+                />
+              ) : null}
 
               <p className="mt-0 font-display text-2xl font-semibold text-brand-800">
                 {item.year}
@@ -37,10 +43,9 @@ export function Sejarah() {
               <h3 className="mt-2 font-display text-lg font-semibold text-brand-950">
                 {item.title}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-brand-900/70">
+              <p className="mt-2 text-sm leading-relaxed text-brand-900/85">
                 {item.body}
               </p>
-              <span className="sr-only">{index + 1}</span>
             </li>
           ))}
         </ol>

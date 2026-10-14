@@ -1,4 +1,6 @@
-export type ProgramItem = { title: string; body: string; icon: string };
+import type { IconName } from "@/components/ui/Icon";
+
+export type ProgramItem = { title: string; body: string; icon: IconName };
 
 export const programs: ProgramItem[] = [
   { title: "TK / KB", body: "Pembentukan karakter dasar dan motorik.", icon: "seedling" },

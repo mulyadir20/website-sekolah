@@ -4,6 +4,8 @@ type SectionHeadingProps = {
   description?: string;
   align?: "left" | "center";
   tone?: "light" | "dark";
+  /** Level heading. Pakai `"h1"` di halaman yang punya judul utama sendiri. */
+  level?: "h1" | "h2";
   className?: string;
 };
 
@@ -16,15 +18,16 @@ export function SectionHeading({
   description,
   align = "center",
   tone = "light",
+  level: Heading = "h2",
   className = "",
 }: SectionHeadingProps) {
   const alignment = align === "center" ? "mx-auto text-center" : "text-left";
   const titleTone =
     tone === "dark" ? "text-white" : "text-brand-950";
   const descTone =
-    tone === "dark" ? "text-brand-100/80" : "text-brand-800/70";
+    tone === "dark" ? "text-brand-100/80" : "text-brand-800/85";
   const eyebrowTone =
-    tone === "dark" ? "text-gold-300" : "text-gold-600";
+    tone === "dark" ? "text-gold-300" : "text-gold-700";
 
   return (
     <div className={`${alignment} ${className}`}>
@@ -36,11 +39,11 @@ export function SectionHeading({
         </p>
       ) : null}
 
-      <h2
+      <Heading
         className={`font-display text-3xl font-semibold leading-tight tracking-tight text-balance sm:text-4xl ${titleTone}`}
       >
         {title}
-      </h2>
+      </Heading>
 
       {description ? (
         <p

@@ -1,4 +1,6 @@
-export type KeunggulanItem = { title: string; body: string; icon: string };
+import type { IconName } from "@/components/ui/Icon";
+
+export type KeunggulanItem = { title: string; body: string; icon: IconName };
 
 export const keunggulan: KeunggulanItem[] = [
   { title: "Pengajar Berpengalaman", body: "Guru bersertifikat dan berpengalaman.", icon: "users" },

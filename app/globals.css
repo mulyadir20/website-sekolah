@@ -39,8 +39,20 @@
 
 html {
   scroll-behavior: smooth;
-  /* offset agar judul section tidak tertutup header */
-  scroll-padding-top: 5.5rem;
+  /*
+   * Offset untuk navigasi anchor agar judul section tidak tertutup header.
+   * Height header: 64px + 1px border = 65px di bawah `lg`,
+   * 36px baris informasi + 80px baris utama + 2px border = 118px di `lg` ke atas.
+   * Sumber tunggal offset ini ada di sini, bukan per-section `scroll-mt-*`,
+   * karena scroll-padding dan scroll-margin akan dijumlahkan.
+   */
+  scroll-padding-top: 4.5rem;
+}
+
+@media (min-width: 64rem) {
+  html {
+    scroll-padding-top: 7.5rem;
+  }
 }
 
 body {
@@ -53,11 +65,6 @@ body {
   background-image: url("/pattern-islamic.svg");
   background-size: 96px 96px;
   background-repeat: repeat;
-}
-
-/* Menyorot bagian yang sedang dituju navigasi */
-:target {
-  scroll-margin-top: 6rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

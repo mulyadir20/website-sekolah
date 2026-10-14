@@ -7,7 +7,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 /** Galeri kegiatan sekolah dengan tata letak bergaya mosaik. */
 export function Galeri() {
   return (
-    <section id="galeri" className="scroll-mt-24 bg-brand-950 py-16 text-white sm:py-20">
+    <section id="galeri" className="bg-brand-950 py-16 text-white sm:py-20">
       <Container>
         <SectionHeading
           eyebrow="Galeri"

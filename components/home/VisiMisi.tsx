@@ -8,7 +8,7 @@ export function VisiMisi() {
   return (
     <section
       id="visi-misi"
-      className="scroll-mt-24 relative overflow-hidden bg-brand-900 py-16 text-white sm:py-20"
+      className="relative overflow-hidden bg-brand-900 py-16 text-white sm:py-20"
     >
       <div
         aria-hidden="true"

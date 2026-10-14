@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { heroStats } from "@/lib/content/profil";
-import { site } from "@/lib/site";
+import { site, whatsappLink } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
 import { AnchorButton, LinkButton } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
@@ -56,7 +56,7 @@ export function Hero() {
                 <Icon name="arrow-right" className="h-5 w-5" />
               </LinkButton>
               <AnchorButton
-                href={`https://wa.me/${site.whatsapp}`}
+                href={whatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 size="lg"
@@ -89,13 +89,13 @@ export function Hero() {
 
             {/* Kartu informasi akreditasi */}
             <div className="relative z-10 -mt-4 rounded-2xl border border-brand-100 bg-white p-4 text-brand-950 shadow-soft sm:absolute sm:-bottom-5 sm:left-8 sm:right-auto sm:top-auto sm:mt-0 sm:w-64">
-              <p className="text-xs font-semibold uppercase tracking-wider text-gold-600">
+              <p className="text-xs font-semibold uppercase tracking-wider text-gold-700">
                 Akreditasi
               </p>
               <p className="mt-1 font-display text-2xl font-semibold">
                 {site.accreditation}
               </p>
-              <p className="mt-1 text-xs text-brand-800/70">
+              <p className="mt-1 text-xs text-brand-800/85">
                 Terdaftar dan terakreditasi resmi
               </p>
             </div>

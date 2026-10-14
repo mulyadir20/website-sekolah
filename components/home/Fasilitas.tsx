@@ -7,7 +7,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 /** Fasilitas pendukung kegiatan belajar dan kegiatan sekolah. */
 export function Fasilitas() {
   return (
-    <section id="fasilitas" className="scroll-mt-24 bg-white py-16 sm:py-20">
+    <section id="fasilitas" className="bg-white py-16 sm:py-20">
       <Container>
         <SectionHeading
           eyebrow="Fasilitas"
@@ -34,7 +34,7 @@ export function Fasilitas() {
                 <h3 className="font-display text-lg font-semibold text-brand-950">
                   {item.nama}
                 </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-brand-900/70">
+                <p className="mt-1.5 text-sm leading-relaxed text-brand-900/85">
                   {item.body}
                 </p>
               </div>

@@ -1,18 +1,13 @@
-import { site } from "@/lib/site";
+import { jamOperasional } from "@/lib/content/jamOperasional";
+import { site, sitePhoneNumber, whatsappLink } from "@/lib/site";
 import { Container } from "@/components/ui/Container";
 import { AnchorButton } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 
-const jamOperasional = [
-  { hari: "Senin - Jumat", waktu: "07.00 - 15.00 WIB" },
-  { hari: "Sabtu", waktu: "07.00 - 12.00 WIB" },
-  { hari: "Ahad", waktu: "Tutup" },
-];
-
 /** Ajakan mendaftar beserta informasi kontak dan lokasi sekolah. */
 export function KontakCTA() {
   return (
-    <section id="kontak" className="scroll-mt-24 bg-sand-50 py-16 sm:py-20">
+    <section id="kontak" className="bg-sand-50 py-16 sm:py-20">
       <Container>
         <div className="grid gap-6 lg:grid-cols-5">
           {/* Ajakan pendaftaran */}
@@ -36,7 +31,7 @@ export function KontakCTA() {
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <AnchorButton
-                  href={`https://wa.me/${site.whatsapp}`}
+                  href={whatsappLink()}
                   target="_blank"
                   rel="noopener noreferrer"
                   size="lg"
@@ -71,7 +66,7 @@ export function KontakCTA() {
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-brand-950">Alamat</p>
-                  <p className="mt-1 text-sm leading-relaxed text-brand-900/70">
+                  <p className="mt-1 text-sm leading-relaxed text-brand-900/85">
                     {site.address}
                   </p>
                 </div>
@@ -83,8 +78,8 @@ export function KontakCTA() {
                 <div>
                   <p className="text-sm font-semibold text-brand-950">Telepon</p>
                   <a
-                    href={`tel:${site.phone.replace(/[^\d+]/g, "")}`}
-                    className="mt-1 block text-sm text-brand-900/70 hover:text-brand-700"
+                    href={`tel:${sitePhoneNumber}`}
+                    className="mt-1 block text-sm text-brand-900/85 hover:text-brand-700"
                   >
                     {site.phone}
                   </a>
@@ -98,7 +93,7 @@ export function KontakCTA() {
                   <p className="text-sm font-semibold text-brand-950">Email</p>
                   <a
                     href={`mailto:${site.email}`}
-                    className="mt-1 block text-sm break-all text-brand-900/70 hover:text-brand-700"
+                    className="mt-1 block text-sm break-all text-brand-900/85 hover:text-brand-700"
                   >
                     {site.email}
                   </a>
@@ -115,7 +110,7 @@ export function KontakCTA() {
                   key={row.hari}
                   className="flex items-center justify-between py-3 text-sm"
                 >
-                  <span className="text-brand-900/70">{row.hari}</span>
+                  <span className="text-brand-900/85">{row.hari}</span>
                   <span className="font-medium text-brand-950">{row.waktu}</span>
                 </li>
               ))}

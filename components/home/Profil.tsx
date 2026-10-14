@@ -7,12 +7,10 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { LinkButton } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 
-/** Profil singkat sekolah beserta poin-poin kekuatannya. */
-
-/** Profil singkat sekolah: narasi, poin-poin kekuatan, dan ajakanfurther reading. */
+/** Profil singkat sekolah: narasi, poin-poin kekuatan, dan ajakan membaca visi misi. */
 export function Profil() {
   return (
-    <section id="profil" className="scroll-mt-24 bg-sand-50 py-16 sm:py-20">
+    <section id="profil" className="bg-sand-50 py-16 sm:py-20">
       <Container>
         <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Narasi */}
@@ -23,7 +21,7 @@ export function Profil() {
               align="left"
             />
 
-            <div className="mt-6 space-y-4 text-base leading-relaxed text-pretty text-brand-900/75">
+            <div className="mt-6 space-y-4 text-base leading-relaxed text-pretty text-brand-900/85">
               <p>
                 Berdiri sejak {site.established}, kami menjalankan
                 pendidikan berbasis nilai Islam yang menyeimbangkan penguasaan
@@ -58,7 +56,7 @@ export function Profil() {
                 <h3 className="mt-4 font-display text-lg font-semibold text-brand-950">
                   {point.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-brand-900/70">
+                <p className="mt-2 text-sm leading-relaxed text-brand-900/85">
                   {point.body}
                 </p>
               </article>
