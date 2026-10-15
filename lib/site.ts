@@ -3,11 +3,11 @@
  * Ubah nilai di sini untuk menyesuaikan seluruh situs.
  *
  * PERINGATAN: proyek ini **mulai dipakai untuk sekolah sungguhan**
- * (Al Wafi International Islamic Boarding School, Campus B, Depok), tetapi
- * baru sebagian. `name`, `shortName`, `schoolAddress`, dan `schoolMap`
- * sudah berisi data sebenarnya. Field lain - tagline, tahun berdiri,
- * akreditasi, dan seluruh kontak - **MASIH data contoh** dan masih perlu
- * diganti dengan data asli pemilik proyek sebelum tayang.
+ * (ACID School), tetapi baru sebagian. `name`, `shortName`,
+ * `schoolAddress`, dan `schoolMap` sudah berisi data sebenarnya.
+ * Field lain - tagline, tahun berdiri, akreditasi, dan seluruh kontak -
+ * **MASIH data contoh** dan masih perlu diganti dengan data asli pemilik
+ * proyek sebelum tayang.
  */
 
 /**
@@ -18,9 +18,12 @@
  * kontak, semuanya diturunkan dari objek ini. Jangan menyalin nilai
  * alamat ke file lain.
  *
- * Sumber: alamat Campus B yang tertera pada situs resmi Al Wafi
- * (`Jln. Raya Pengasinan, Pengasinan Village, Sawangan, Depok City, 16518`).
- * Koordinat peta di `schoolMap` menunjuk lokasi yang sama.
+ * Sumber: alamat Campus B milik Al Wafi International Islamic Boarding
+ * School (`Jln. Raya Pengasinan, Pengasinan Village, Sawangan,
+ * Depok City, 16518`). Nilai ini **dipakai kembali untuk ACID School**
+ * atas permintaan pemilik proyek; koordinat peta di `schoolMap` menunjuk
+ * lokasi yang sama. Ganti seluruhnya bila lokasi ACID School sebenarnya
+ * sudah diketahui.
  */
 export const schoolAddress = {
   street: "Jl. Raya Pengasinan",
@@ -72,10 +75,11 @@ export const schoolMapEmbedUrl = `https://www.google.com/maps?q=${schoolMap.lati
 
 export const site = {
   // --- DATA DEMO: identitas institusi ---
-  // Nama dan alamat sudah diganti ke data sebenarnya (Al Wafi, Campus B,
-  // Depok). Sisanya MASIH data contoh dan perlu diganti pemilik proyek.
-  name: "Al Wafi International Islamic Boarding School",
-  shortName: "Al Wafi IBS",
+  // Nama adalah data sebenarnya: "ACID School". Alamat masih memakai
+  // lokasi Campus B di Depok atas keputusan pemilik proyek.
+  // Sisanya MASIH data contoh dan perlu diganti pemilik proyek.
+  name: "ACID School",
+  shortName: "ACID School",
   tagline: "Berakhlak Mulia, Berprestasi, Berbudaya Islami",
   established: "1998",
   accreditation: "Akreditasi A",

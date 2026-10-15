@@ -999,3 +999,84 @@ data asli dari pemilik proyek.
 - Tidak mengubah `lib/content/*` - di luar cakupan permintaan sesi ini.
 - Tidak mengubah `site.url` (tetap `website-sekolah-steel.vercel.app`).
 - Tidak menghapus penanda demo di footer - `isDemo` masih `true`.
+
+---
+
+## Sesi: Ganti Nama Sekolah ke "ACID School"
+
+Tanggal: 2026-10-15 (sesi lanjutan)
+
+Status: **Nama diganti di seluruh situs. Check dan build LOLOS.**
+
+### Permintaan pemilik proyek
+
+Mengganti seluruh data nama "Al Wafi IBS" menjadi "ACID School".
+
+### Keputusan pemilik proyek
+
+1. `site.name` **dan** `site.shortName` keduanya diisi `"ACID School"`. Dillifier
+   nilai keduanya sama, bukan purposeful berbeda.
+2. **Peta tidak diubah** - tetap menunjuk Al Wafi Campus B, Depok, walaupun
+   nama sekolah sudah berbeda. Ash knowingly.
+
+Keputusan ini dicatat karena peta dan nama kini tidak saling cocok; bukan
+kebetulan yang boleh dilupakan.
+
+### Perubahan yang diterapkan
+
+Hanya **`lib/site.ts`**, pada dua baris nilai:
+
+```
+- name: "Al Wafi International Islamic Boarding School",
+- shortName: "Al Wafi IBS",
++ name: "ACID School",
++ shortName: "ACID School",
+```
+
+Ketiga komentar di file yang sama juga diselaraskan supaya tidak lagi
+menyebut "Al Wafi" sebagai nama sekolah yang sedang berjalan.
+
+Tidak ada file lain yang berubah. Ini mungkin Possible karena `lib/site.ts`
+sudah menjadi sumber kanonis tunggal sejak sesi refactor anti-drift, jadi
+satu pair baris ini cukup untuk menutup seluruh situs.
+
+### Hasil verifikasi
+
+| Pemeriksaan | Hasil |
+|---|---|
+| `npm run check` | **Lolos**, tanpa error |
+| `npm run build` | **Sukses**, 12/12 halaman statis |
+| Sisa `Al Wafi` / `Istiqamah` di HTML yang dirender | **Nol** |
+| Kemunculan `ACID School` di beranda | 44 |
+| Kemunculan `ACID School` di halaman berita | 38 |
+
+### Yang SENGAJA tidak diubah
+
+- **Peta** - `schoolMap` dan `schoolMapEmbedUrl` tidak disentuh, atas
+  permintaan pemilik proyek.
+- **Alamat** - tetap `Jl. Raya Pengasinan, Pengasinan, Sawangan, Depok`.
+- **Slogan** di `components/site/Footer.tsx:123` ("Berbasis nilai Adab dan
+  Ilmu") dan `components/home/Profil.tsx:20` ("Mendidik dengan Adab dan
+  Ilmu"). Keduanya variation copy, bukan nama sekolah - sama seperti
+  keputusan sesi refactor anti-drift.
+- **Satu penyebutan "Al Wafi" di komentar kode** `lib/site.ts:21`. Itu
+  catatan asal-usul alamat, tidak pernah dirender. Sengaja dibiarkan supaya
+  jelas bahwa alamat tersebut dipinjam dari institution lain dan perlu
+  diganti bila lokasi ACID School sebenarnya sudah diketahui.
+- **Riwayat di `SESSION.md`** - sesi-sesi sebelumnya tetap menyebut Al Wafi
+  karena itu catatan faktual tentang apa yang pernah terjadi.
+
+### Ketidaksesuaian yang sekarang terbuka
+
+Nama, alamat, dan peta **tidak saling cocok**: situs bernama "ACID School"
+lalu menampilkan peta Campus B milik Al Wafi. Pemilik proyek sudah tahu dan
+memutuskannya sendiri.opi Dicatat di sini supaya tidak hilang kalau nanti
+peta ini menimbulkan pertanyaan.
+
+### Sisa pekerjaan demo yang masih terbuka
+
+Tidak berubah dari sesi sebelumnya. `site.tagline`, `site.established`,
+`site.accreditation`, seluruh kontak (`phone`, `whatsapp`, `email`),
+`site.isDemo`, serta konten di `lib/content/*` (program, profil, berita)
+masih data contoh. Pemilik proyek sudah memutuskan untuk membiarkannya
+demi sekarang.
