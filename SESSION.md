@@ -812,3 +812,76 @@ pemilik proyek. `git status` menunjukkan `M lib/site.ts` saja.
 3. Setelah itu, yang tersisa memverifikasi apakah Google Fonts berhasil
    diunduh di build machine Vercel - satu-satunya hal teknis yang belum
    pernah bisa dipastikan tanpa deployment nyata.
+
+---
+
+## Sesi: Ganti Banner Hero ke Foto PNG
+
+Tanggal: 2026-10-15 (sesi lanjutan)
+
+Status: **Banner hero sudah diganti ke foto PNG. Check dan build LOLOS.**
+
+### Permintaan pemilik proyek
+
+Mengganti gambar banner utama di bagian header/hero website dengan foto
+pribadi pemilik proyek.
+
+### Telusuran awal (sesi baca-saja, tanpa perubahan kode)
+
+- File yang menampilkan banner: `components/home/Hero.tsx` baris 80-87.
+- Banner **bukan** memakai CSS `background-image`, melainkan komponen
+  `next/image` dengan `src` berupa string path yang diambil dari folder
+  `public/`.
+- Gambar lama: `public/images/hero-campus.svg` (5.963 byte, ilustrasi vektor).
+- Folder tujuan yang sesuai: `public/images/` - sudah dipakai semua gambar
+  lain di proyek ini, jadi tidak perlu folder baru.
+- Dimensi PNG yang dipakai pemilik: **1200 x 760**, **persis sama** dengan
+  `width={1200} height={760}` di kode. Karena itu `width`/`height` **tidak
+  perlu diubah** dan tidak akan terjadi layout shift.
+
+### Perubahan yang diterapkan
+
+Hanya **satu baris kode**, di `components/home/Hero.tsx` baris 81:
+
+```
+- src="/images/hero-campus.svg"
++ src="/images/hero-campus.png"
+```
+
+File `public/images/hero-campus.png` (1.208.242 byte) sudah ada di disk
+sebelum sesi ini dan sempat berstatus untracked; sesi ini yang menambahkannya
+ke Git.
+
+### Hasil verifikasi
+
+| Pemeriksaan | Hasil |
+|---|---|
+| `npm run check` (typegen + `tsc --noEmit` + ESLint) | **Lolos**, tanpa error |
+| `npm run build` (produksi, Turbopack) | **Sukses**, 12/12 halaman statis |
+| `file public/images/hero-campus.png` | `1200 x 760, 8-bit/color RGB, non-interlaced` |
+| HTML hasil build (`.next/server/app/index.html`) | Mengandung `hero-campus.png` |
+
+### Catatan yang masih terbuka
+
+1. **Ukuran file 1,2 MB.** Ini sekitar 4x lebih besar dari SVG lama (6 KB).
+   Halaman tetap jalan, tapi route `/` jadi lebih berat dan-tetap
+   mengonsumsi kuota bandwidth bulanan di Vercel Hobby yang berbatas.
+   Sebaiknya dikompres (target 150-300 KB) atau dikonversi ke `.jpg` lebih
+   dulu. **Belum dikerjakan** - perlu persetujuan pemilik proyek karena
+   akan mengubah file asli.
+2. **`alt` masih berbunyi "Ilustrasi gedung sekolah dengan masjid dan
+   menara"** (`Hero.tsx:82`). Sekarang yang tampil adalah foto, bukan
+   ilustrasi. Teks `alt` dibaca screen reader dan mesin pencari. **Sengaja
+   tidak diubah** karena isi foto belum diketahui pemilik proyek - nilai
+   tidak boleh ditebak.
+3. **`public/images/hero-campus.svg` masih ada** di disk tapi sudah tidak
+   dipakai kode mana pun. Tidak dihapus karena tidak diminta.
+
+### Yang SENGAJA tidak dilakukan
+
+- Tidak mengubah `width`/`height` - tidak perlu, dimensi sudah cocok.
+- Tidak menghapus SVG lama.
+- Tidak mengompres PNG atau mengganti formatnya.
+- Tidak mengubah teks `alt` (lihat catatan nomor 2).
+- Tidak menyentuh `next.config.ts` - tidak perlu `images.remotePatterns`
+  karena gambar disimpan lokal di `public/`, bukan diambil dari server luar.

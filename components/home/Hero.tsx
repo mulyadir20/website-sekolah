@@ -78,7 +78,7 @@ export function Hero() {
           <div className="relative">
             <div className="overflow-hidden rounded-3xl border border-white/15 bg-brand-900 shadow-lift">
               <Image
-                src="/images/hero-campus.svg"
+                src="/images/hero-campus.png"
                 alt="Ilustrasi gedung sekolah dengan masjid dan menara"
                 width={1200}
                 height={760}
