@@ -9,6 +9,7 @@ import { Keunggulan } from "@/components/home/Keunggulan";
 import { Berita } from "@/components/home/Berita";
 import { Fasilitas } from "@/components/home/Fasilitas";
 import { Galeri } from "@/components/home/Galeri";
+import { PetaLokasi } from "@/components/home/PetaLokasi";
 import { KontakCTA } from "@/components/home/KontakCTA";
 
 export default function Home() {
@@ -25,6 +26,7 @@ export default function Home() {
         <Berita />
         <Fasilitas />
         <Galeri />
+        <PetaLokasi />
         <KontakCTA />
       </main>
       <Footer />

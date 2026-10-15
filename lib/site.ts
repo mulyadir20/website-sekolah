@@ -2,9 +2,12 @@
  * Identitas utama sekolah.
  * Ubah nilai di sini untuk menyesuaikan seluruh situs.
  *
- * PERINGATAN: proyek ini adalah DEMO fiktif, bukan situs sekolah sungguhan.
- * Semua identitas, statistik, dan kontak di bawah adalah data contoh.
- * Jangan memakai nilai ini untuk situs yang benar-benar tayang.
+ * PERINGATAN: proyek ini **mulai dipakai untuk sekolah sungguhan**
+ * (Al Wafi International Islamic Boarding School, Campus B, Depok), tetapi
+ * baru sebagian. `name`, `shortName`, `schoolAddress`, dan `schoolMap`
+ * sudah berisi data sebenarnya. Field lain - tagline, tahun berdiri,
+ * akreditasi, dan seluruh kontak - **MASIH data contoh** dan masih perlu
+ * diganti dengan data asli pemilik proyek sebelum tayang.
  */
 
 /**
@@ -15,13 +18,15 @@
  * kontak, semuanya diturunkan dari objek ini. Jangan menyalin nilai
  * alamat ke file lain.
  *
- * DATA DEMO: ganti seluruh nilai bila situs dijadikan sekolah sungguhan.
+ * Sumber: alamat Campus B yang tertera pada situs resmi Al Wafi
+ * (`Jln. Raya Pengasinan, Pengasinan Village, Sawangan, Depok City, 16518`).
+ * Koordinat peta di `schoolMap` menunjuk lokasi yang sama.
  */
 export const schoolAddress = {
-  street: "Jl. Pendidikan Islam No. 27",
-  district: "Sukamaju",
-  city: "Bandung",
-  postalCode: "40286",
+  street: "Jl. Raya Pengasinan",
+  district: "Pengasinan, Sawangan",
+  city: "Depok",
+  postalCode: "16518",
   province: "Jawa Barat",
   /** Kode negara ISO 3166-1 alpha-2, dipakai oleh JSON-LD. */
   countryCode: "ID",
@@ -37,10 +42,40 @@ export const schoolAddressLine = [
   schoolAddress.province,
 ].join(", ");
 
+/**
+ * Lokasi peta sekolah.
+ *
+ * Sumber kanonis untuk section peta di beranda. `shareUrl` adalah tautan
+ * berbagi resmi dari Google Maps (dipakai untuk tombol "Buka di Google
+ * Maps"), sedangkan koordinat dipakai untuk peta yang tertanam di halaman.
+ *
+ * Keduanya harus menunjuk lokasi yang sama. Kalau alamat sekolah berubah,
+ * perbarui nilai di sini juga.
+ */
+export const schoolMap = {
+  /** Tautan berbagi lokasi, tanpa parameter pelacak. */
+  shareUrl: "https://maps.app.goo.gl/9Nu7SVL1b1auXorU9",
+  latitude: -6.4290864,
+  longitude: 106.7510048,
+  zoom: 16,
+} as const;
+
+/**
+ * URL peta tertanam (embed).
+ *
+ * Disusun dari `schoolMap` supaya koordinat tidak bisa berbeda dari
+ * tautan berbagi. `output=embed` adalah bentuk yang diizinkan Google untuk
+ * menanam di dalam `<iframe>`; membuka `maps.google.com` langsung di
+ * dalam iframe akan ditolak.
+ */
+export const schoolMapEmbedUrl = `https://www.google.com/maps?q=${schoolMap.latitude},${schoolMap.longitude}&z=${schoolMap.zoom}&hl=id&output=embed`;
+
 export const site = {
   // --- DATA DEMO: identitas institusi ---
-  name: "Sekolah Islam Terpadu Al-Istiqamah",
-  shortName: "SIT Al-Istiqamah",
+  // Nama dan alamat sudah diganti ke data sebenarnya (Al Wafi, Campus B,
+  // Depok). Sisanya MASIH data contoh dan perlu diganti pemilik proyek.
+  name: "Al Wafi International Islamic Boarding School",
+  shortName: "Al Wafi IBS",
   tagline: "Berakhlak Mulia, Berprestasi, Berbudaya Islami",
   established: "1998",
   accreditation: "Akreditasi A",

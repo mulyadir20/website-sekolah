@@ -885,3 +885,117 @@ ke Git.
 - Tidak mengubah teks `alt` (lihat catatan nomor 2).
 - Tidak menyentuh `next.config.ts` - tidak perlu `images.remotePatterns`
   karena gambar disimpan lokal di `public/`, bukan diambil dari server luar.
+
+---
+
+## Sesi: Section Peta Lokasi + Ganti Nama & Alamat
+
+Tanggal: 2026-10-15 (sesi lanjutan)
+
+Status: **Peta lokasi terpasang sebelum section kontak. Nama dan alamat
+sudah diganti ke Al Wafi Campus B, Depok. Check dan build LOLOS.**
+
+### Permintaan pemilik proyek
+
+Menambahkan section peta di kolom sebelum kontak, memakai tautan
+`https://maps.app.goo.gl/9Nu7SVL1b1auXorU9`.
+
+### Temuan penting sebelum mengubah kode
+
+Tautan tersebut **bukan** link netral. Setelah di-resolve, ia menunjuk ke
+**Al Wafi International Islamic Boarding School - Campus B, Depok**
+(koordinat `-6.4290864, 106.7510048`) - sebuah institusi nyata.
+
+Proyek ini sebelumnya dinyatakan **fiktif untuk demo**, dengan identitas
+"Al-Istiqamah, Bandung" dan kontak sengaja dibuat tidak bisa dihubungi.
+Memasang peta tersebut apa adanya akan mengarahkan pengunjung ke sekolah
+nyata yang **berbeda** dengan identitas di halaman.
+
+Hal ini dikonfirmasi ke pemilik proyek, dan dijawab: **ya, itu sekolahnya**,
+serta meminta nama dan alamatnya disamakan. Keputusan pemilik proyek
+dicatat di sini supaya tidak disalahartikan sebagai perubahan yang dikerjakan
+agen tanpa persetujuan.
+
+### Sumber data yang dipakai
+
+Nama dan alamat diambil dari **situs resmi sekolah**
+(`al-wafi.sch.id` dan `english.al-wafi.sch.id`), bukan dikarang:
+
+- Nama resmi: "Al Wafi International Islamic Boarding School"
+- Alias yang dipakai sekolah sendiri di media sosial: "Al Wafi IBS"
+- Alamat Campus B, verbatim dari situs resmi:
+  `Jln. Raya Pengasinan, Pengasinan Village, Sawangan, Depok City, 16518`
+
+### Perubahan yang diterapkan
+
+**File baru `components/home/PetaLokasi.tsx`**
+
+Section peta berisi judul, peta interaktif, alamat, dan tombol "Buka di Google
+Maps". Memakai komponen yang sudah ada (`Container`, `SectionHeading`,
+`Icon`) supaya konsisten dengan section lain.
+
+**`lib/site.ts`**
+
+- Ekspor baru `schoolMap`: `shareUrl`, `latitude`, `longitude`, `zoom`.
+- Ekspor baru `schoolMapEmbedUrl`, disusun dari `schoolMap` sehingga
+  koordinat embed tidak mungkin berbeda dari tautan berbagi.
+- `schoolAddress` diganti ke alamat Campus B, Depok.
+- `site.name` dan `site.shortName` diganti ke Al Wafi.
+- Peringatan di kepala file diperbarui: proyek tidak lagi sepenuhnya fiktif,
+  tapi masih **sebagian** saja yang memakai data sebenarnya.
+
+**`app/page.tsx`** - `<PetaLokasi />` dipasang setelah `<Galeri />` dan
+sebelum `<KontakCTA />`.
+
+### Catatan teknis: kenapa tautan asli tidak bisa dipakai langsung
+
+`maps.app.goo.gl` adalah tautan pengalihan ke halaman aplikasi Google Maps
+penuh. Google menolak pemuatan halaman itu di dalam `<iframe>`
+(`X-Frame-Options`), jadi **`output=embed` wajib dipakai**. Bentuk
+`https://www.google.com/maps?q=<lat>,<lng>&z=<zoom>&output=embed` adalah
+pola yang didukung tanpa API key, dan sudah diverifikasi HTTP 200 setelah
+mengikuti pengalihan.
+
+Di HTML hasil render, `&` pada `src` iframe tampil sebagai `&amp;`. Itu
+escaping HTML yang normal, bukan karakter yang tersimpan di kode sumber.
+
+### Hasil verifikasi
+
+| Pemeriksaan | Hasil |
+|---|---|
+| `npm run check` | **Lolos**, tanpa error |
+| `npm run build` | **Sukses**, 12/12 halaman statis |
+| Urutan section di HTML hasil build | `galeri` -> `lokasi` -> `kontak` |
+| `src` iframe di HTML | `https://www.google.com/maps?q=-6.4290864,106.7510048&z=16&hl=id&output=embed` |
+| Sisa `Al-Istiqamah` / `Bandung` / `Sukamaju` / `40286` di kode | **Nol** |
+| Sisa data lama di `.next/server/app/` | **Nol** |
+| JSON-LD `PostalAddress` | Otomatis ikut berubah ke alamat Depok |
+
+### Yang MASIH berupa data demo - belum dikerjakan
+
+Pemilik proyek memilih hanya nama dan alamat untuk sesi ini. Field berikut
+masih data contoh dan **tidak sesuai** dengan Al Wafi:
+
+| Lokasi | Nilai lama | Catatan |
+|---|---|---|
+| `site.tagline` | "Berakhlak Mulia, Berprestasi, Berbudaya Islami" | Perlu tagline resmi |
+| `site.established` | "1998" | Yayasan Al-Sudais Indonesia didirikan 2016 |
+| `site.accreditation` | "Akreditasi A" | Situs resmi menyebut "Akreditasi Unggul" |
+| `site.phone` | `(022) 0000-0000` | Tidak bisa dihubungi |
+| `site.whatsapp` | `6281100000000` | Tidak bisa dihubungi |
+| `site.email` | `info@example.com` | Tidak bisa menerima email |
+| `site.isDemo` | `true` | Penanda "demo" di footer masih aktif |
+| `lib/content/program.ts` | TK/KB, MI, MTS, MA, Dayah, Beasiswa | Al Wafi menjalankan SDTQ, SMP, SMA |
+| `lib/content/profil.ts` | "1.250+ siswa", "48 pengajar" | Angka contoh |
+| `lib/content/berita.ts` | 3 berita contoh | Belum ada berita Al Wafi |
+
+**Nilai-nilai ini tidak ditebak atau diinventar sendiri.** Semuanya menunggu
+data asli dari pemilik proyek.
+
+### Yang SENGAJA tidak dilakukan
+
+- Tidak mengisi tagline, tahun berdiri, akreditasi, atau kontak tanpa data
+  resmi dari pemilik proyek.
+- Tidak mengubah `lib/content/*` - di luar cakupan permintaan sesi ini.
+- Tidak mengubah `site.url` (tetap `website-sekolah-steel.vercel.app`).
+- Tidak menghapus penanda demo di footer - `isDemo` masih `true`.
